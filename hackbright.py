@@ -33,6 +33,9 @@ def get_student_by_github(github):
 
     row = db_cursor.fetchone()
 
+    if row == None:
+        return (None,None,None)
+
     print(f"Student: {row[0]} {row[1]}\nGitHub account: {row[2]}")
 
     return row
@@ -149,6 +152,33 @@ def get_grades_by_title(title):
 
     return rows
 
+def get_students():
+    """List all students"""
+
+    QUERY = """
+        SELECT github 
+        FROM students
+        """
+
+    db_cursor = db.session.execute(QUERY)
+
+    rows = db_cursor.fetchall()
+
+    return rows
+
+def get_projects():
+    """List all projects"""
+
+    QUERY = """
+        SELECT title 
+        FROM projects
+        """
+
+    db_cursor = db.session.execute(QUERY)
+
+    rows = db_cursor.fetchall()
+
+    return rows
 
 def handle_input():
     """Main loop.
